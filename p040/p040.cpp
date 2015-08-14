@@ -34,7 +34,7 @@ public:
 };
 
 // ----------------------------------------------------------------------------
-// Initialize Vector with a list
+                                                                                // Initialize Vector with a list
 Vector::Vector(std::initializer_list<double> lst) :elem {new double[lst.size()]}, sz {static_cast<int>(lst.size())} {
 
   copy(lst.begin(), lst.end(), elem);                                           // copy from lst into elem (§10.6)
@@ -53,9 +53,7 @@ public:
 };
 
 // ----------------------------------------------------------------------------
-// initialize with a list
-//Vector_container::Vector_container(initializer_list<double> lst) : v {lst}{   // No way to use list initialization inside member initializer list
-Vector_container::Vector_container(initializer_list<double> lst) :v(lst) {}     // v Default constructor must be defined
+Vector_container::Vector_container(initializer_list<double> lst) : v{ lst } {}  // initialize with a list  
 
 // ----------------------------------------------------------------------------
 class List_container: public Container {                                        // List_container implements Container
