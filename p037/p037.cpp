@@ -30,7 +30,6 @@ public:
     for (int i = 0; i!=sz; ++i) {                                               // initialize elements
       elem[i] = v.elem[i];
     }
-
   }
 
   Vector(std::initializer_list<double>);                                        // initialize with a list of doubles
@@ -44,7 +43,7 @@ public:
 };
 
 // ----------------------------------------------------------------------------
-// initialize with a list
+                                                                                // initialize with a list
 Vector::Vector(std::initializer_list<double> lst) :elem {new double[lst.size()]}, sz {static_cast<int>(lst.size())} {
 
   copy(lst.begin(), lst.end(), elem);                                           // copy from lst into elem (§10.6)
@@ -67,20 +66,22 @@ void Vector::push_back(double a) {
     elem = tmp;
     sz++;
   }
-
 }
 
 // ----------------------------------------------------------------------------
 void fct(int n) {
+
   Vector v(n);
+  
   // ... use v ...
+  
   {
     Vector v2(2*n);
     // ... use v and v2 ...
-  } // v2 is destroyed here
+  }                                                                             // v2 is destroyed here
   
   // ... use v ..
-} // v is destroyed here
+}                                                                               // v is destroyed here
 
 // ----------------------------------------------------------------------------
 Vector read(istream& is) {
@@ -91,8 +92,6 @@ Vector read(istream& is) {
     v.push_back(d);                                                             // add d to v
   
   cin.clear();
-  cin.sync();
-  
   return v;                                                                     // Make a copy using copy constructor, delete v then return
 }
 
@@ -104,7 +103,7 @@ void Test(void) {
 
   fct(1024);
   
-  cout << "Enter space separated values then end with CTRL+D :" << endl;
+  cout << "Enter double values separated with SPACE. Finish the line with CTRL+Z : ";
   Vector v = read(cin);
 
   for (int i=0; i != v.size(); ++i)

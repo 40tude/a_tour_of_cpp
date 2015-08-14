@@ -33,7 +33,8 @@ int main() {
 #endif // _MSC_VER
 
     cout << "Press ENTER to quit : ";
-    cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+    cin.ignore((numeric_limits<streamsize>::max)(), '\n');                      // wait for a new line
+
   } catch (out_of_range){                                                       // Shows how to catch one exception
     cout << "Range Error somewhere..." << endl;
   } catch (...){
