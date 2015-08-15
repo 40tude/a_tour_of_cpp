@@ -10,7 +10,7 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-template<typename T, typename ... Args>
+template<typename T, typename ... Args>                                         // variadic template see p 66
 unique_ptr<T> Make_Unique(Args&&... args) {
   return std::unique_ptr<T>{new T{ std::forward<Args>(args)... }};
 }
@@ -30,8 +30,8 @@ void Test(void) {
   
   auto p2 = make_shared<S>(2, "Oz", 7.62);
 
-  auto p3 = make_unique<S>(3, "Atlantis", 11.3);                                // make_unique already exist
-
+  auto p3 = make_unique<S>(3, "Atlantis", 11.3);                                // make_unique already exist in C++14. 
+                                                                                // Right click on the name and select Go To Definition (F12) or Peek Defintion (ALT F12)
   auto p4 = Make_Unique<S>(4, "Austin", 42.0);
 }
 
