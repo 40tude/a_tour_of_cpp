@@ -22,7 +22,7 @@ struct Greater_than {
 // ----------------------------------------------------------------------------
 void f(map<string, int>& m){
 
-  auto p = find_if(m.begin(), m.end(), Greater_than{ 40 });
+  auto p = find_if(m.begin(), m.end(), Greater_than{ 40 });                     // Returns an iterator to the first element in the range [first,last) for which pred returns true
   cout << p->first << " : " << p->second << endl;
   // ...
 }
