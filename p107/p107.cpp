@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -17,26 +18,24 @@ struct Entry{
 };
 
 // ----------------------------------------------------------------------------
-// Returns true when satisfied and false otherwise
-bool operator<(const Entry& x, const Entry& y){                                 // less than
+bool operator<(const Entry& x, const Entry& y){                                 // less than operator. Returns true when satisfied and false otherwise
   return x.name < y.name;                                                       // order Entrys by their names
 }
 
 // ----------------------------------------------------------------------------
-// TODO : under st which operator is called and when
 bool operator==(const Entry& x, const Entry& y){                                // equality
   return x.name == y.name;                                                      // test Entrys by their names
 }
 
 // ----------------------------------------------------------------------------
-void f1(vector<Entry>& vec, list<Entry>& lst){
+void f_p107(vector<Entry>& vec, list<Entry>& lst){
 
   sort(vec.begin(), vec.end());                                                  // use < for order
   unique_copy(vec.begin(), vec.end(), lst.begin());                              // don’t copy adjacent equal elements
 }
 
 // ----------------------------------------------------------------------------
-list<Entry> f2(vector<Entry>& vec){
+list<Entry> f_p108(vector<Entry>& vec){
   
   list<Entry> res;
 
@@ -64,11 +63,11 @@ void Test(void) {
   };
 
   list<Entry> MyList{ 10 };
-  f1(phone_book, MyList);                                                       // MyList must exist and be large enough
+  f_p107(phone_book, MyList);                                                       // MyList must exist and be large enough
   for (const auto x : MyList)
     cout << x.name << endl;
 
-  list<Entry> MyOtherList = f2(phone_book);                                     // MyOtherList is built
+  list<Entry> MyOtherList = f_p108(phone_book);                                     // MyOtherList is built
   for (const auto x : MyOtherList)
     cout << x.name << endl;
 }

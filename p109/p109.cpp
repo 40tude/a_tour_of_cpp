@@ -11,7 +11,7 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-bool has_c1(const string& s, char c){                                           // does s contain the character c?
+bool has_c1(const string& s, char c){                                           // does string s contain the character c?
 
   auto p = find(s.begin(), s.end(), c);
   if (p != s.end())
@@ -21,7 +21,7 @@ bool has_c1(const string& s, char c){                                           
 }
 
 // ----------------------------------------------------------------------------
-bool has_c2(const string& s, char c){                                           // does s contain the character c?
+bool has_c2(const string& s, char c){                                           // does string s contain the character c?
   return find(s.begin(), s.end(), c) != s.end();
 }
 
@@ -56,45 +56,66 @@ void Test(void) {
   
   auto Bob = has_c1("alibaba", 'a');
   if (Bob)
-    cout << "There is at least one a in Alibaba" << endl;
+    cout << "There is at least one 'a' in 'Alibaba'" << endl;
   else
     cout << "There is a bug in has_c1()" << endl;
-  cout << "\n";
 
   Bob = has_c2("alibaba", 'a');
   if (Bob)
-    cout << "There is at least one a in Alibaba" << endl;
+    cout << "There is at least one 'a' in 'Alibaba'" << endl;
   else
     cout << "There is a bug in has_c2()" << endl;
-  cout << "\n";
+  cout << endl;
 
-  vector<string::iterator> Places = Find_All(string("Alibaba"), 'a');
-  int count = 1;
-  for (const auto &x : Places)
-    cout << "Occurence # : " << count++ << endl;
-  cout << "\n";
+  string m1 { "Mary had a little lamb" };                                       // Use the "genuine" version
+  auto count1 = 0;
+  for (auto p : Find_All(m1, 'a'))
+    if (*p != 'a')
+      cerr << "A bug!\n";
+    else
+      ++count1;
+  cout << "There are " << count1 << " 'a' in 'Mary had a little lamb'" << endl;
 
-  // Now it use the template version
-  string m{ "Mary had a little lamb" };
-  for (auto p : find_all(m, 'a')) // p is a str ing::iterator
+  
+  string m2 { "Mary had a little lamb" };                                       // Now it use the templated version
+  auto count2 = 0;
+  for (auto p : find_all(m2, 'a'))                                              // p is a string::iterator
     if (*p != 'a')
       cerr << "string bug!\n";
-  
+    else
+      ++count2;
+  cout << "There are " << count2 << " 'a' in 'Mary had a little lamb'" << endl;
+  cout << endl;
+
   list<double> ld{ 1.1, 2.2, 3.3, 1.1 };
+  auto count3 = 0;
   for (auto p : find_all(ld, 1.1))
     if (*p != 1.1)
       cerr << "list bug!\n";
-  
+    else
+      ++count3;
+  cout << "There are " << count3 << " values equal to 1.1 in the list" << endl;
+
   vector<string> vs{ "red", "blue", "green", "green", "orange", "green" };
+  cout << "\nInitial list :" << endl;
+  for (const auto &p : vs) cout << p << endl;
+  cout << endl;
+
+  auto count4 = 0;
   for (auto p : find_all(vs, "red"))
     if (*p != "red")
       cerr << "vector bug!\n";
+    else
+      ++count4;
+  cout << "There are " << count4 << " red in the vector" << endl;
+  cout << endl;
   
   for (auto p : find_all(vs, "green"))
     *p = "vert";
 
-  for (const auto &p : vs)
-    cout << p << endl;
+  cout << "After replacing 'green' by 'vert' in the list :" << endl;
+
+  for (const auto &p : vs) cout << p << endl;
   cout << "\n";
 }
 

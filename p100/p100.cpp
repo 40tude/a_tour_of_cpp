@@ -27,6 +27,7 @@ int get_number(const string& s){
   for (const auto& x : phone_book)
     if (x.name == s)
       return x.number;
+  
   return 0;                                                                     // use 0 to represent "number not found"
 }
 
@@ -36,22 +37,25 @@ int get_numberV2(const string& s){
   for (auto p = phone_book.begin(); p != phone_book.end(); ++p)
     if (p->name == s)
       return p->number;
+  
   return 0;                                                                     // use 0 to represent "number not found"
 }
 
 // ----------------------------------------------------------------------------
 list<Entry>::iterator ReturnIeratorTo(const Entry& ee){
+  
   for (auto p = phone_book.begin(); p != phone_book.end(); ++p)
     if (p->name == ee.name && p->number == ee.number)
       return p;
+  
   return phone_book.end();
 }
 
 // ----------------------------------------------------------------------------
 void f(const Entry& ee, list<Entry>::iterator p, list<Entry>::iterator q){
 
-  phone_book.insert(p, ee); // add ee before the element referred to by p
-  phone_book.erase(q); // remove the element referred to by q
+  phone_book.insert(p, ee);                                                     // add ee before the element referred to by p
+  phone_book.erase(q);                                                          // remove the element referred to by q
 }
 
 // ----------------------------------------------------------------------------
@@ -67,10 +71,11 @@ void Test(void) {
   else
     cout << "Karl Popper is NOT in the directory" << endl;
 
-  list<Entry>::iterator p = ReturnIeratorTo({ "Karl Popper", 234567 });
+  list<Entry>::iterator p = ReturnIeratorTo({ "Karl Popper", 234567 });         // Replace Karl Popper with Me in the phone book 
   list<Entry>::iterator q=p;
 
   f({ "Me", 148944 }, p, q);
+  
   cout << "\nListing of the Phone Book" << endl;
   for (const auto & x : phone_book)
     cout << x.name << " : " << x.number << endl;
