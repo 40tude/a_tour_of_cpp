@@ -21,7 +21,7 @@ public:
   ~Vector() { delete[] elem; }                                                  // destructor: release resources
   // ... copy and move operations ...
   T& operator[](int i) { return elem[i]; }
-  const T& operator[](int i) const;                                           // read only operator since retruned value is const
+  const T& operator[](int i) const;                                             // read only operator since retruned value is const
   int size() const { return sz; }
 };
 
@@ -91,7 +91,7 @@ int main() {
   Test();
 
 #ifdef _MSC_VER
-  //_CrtMemDumpAllObjectsSince(NULL);                                             // Begins the dump from the start of program execution
+  //_CrtMemDumpAllObjectsSince(NULL);                                           // Begins the dump from the start of program execution
   _CrtDumpMemoryLeaks();
 #endif // _MSC_VER
 
