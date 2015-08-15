@@ -30,11 +30,9 @@ ostream& operator<<(ostream& os, const Entry& e){
 
 // ----------------------------------------------------------------------------
 void print_book(const vector<Entry>& book){
-
-  // auto x         : when you want to work with copies.
-  // auto &x        : when you want to work with original items and may modify them.
-  // auto const &x  : when you want to work with original items and will not modify them.
-  for (const auto& x : book) cout << x << '\n';
+                                                                                // auto x         : when you want to work with copies.
+                                                                                // auto &x        : when you want to work with original items and may modify them.
+  for (const auto& x : book) cout << x << '\n';                                 // auto const &x  : when you want to work with original items and will not modify them.
 }
 
 // ----------------------------------------------------------------------------
@@ -43,7 +41,7 @@ void Test(void) {
   vector<Entry> phone_book = {
       { "David Hume", 123456 },
       { "Karl Popper", 234567 },
-      { "Ber trand Ar thur William Russell", 345678 }
+      { "Bertrand Arthur William Russell", 345678 }
   };
 
   print_book(phone_book);

@@ -18,24 +18,22 @@ struct Entry {
 
 // ----------------------------------------------------------------------------
 template<typename T>
-class Vec : public std::vector<T> {
+class Vec : public std::vector<T> {                                             // the class Vec publicly inherit from std::vector
 
+                                                                                // TODO : I d not understand the next statement (using vector<T>::vector;)
+                                                                                // See http://www.stroustrup.com/what-is-2009.pdf p10-11
+                                                                                // This means "import" vector() (constructors) from std::vector
+                                                                                // Inheriting constructors
+                                                                                // see http://ideone.com/NpAXgJ
 public:
-  // TO DO : I d not understand the next statement (commented : using vector<T>::vector;)
-  // See http://www.stroustrup.com/what-is-2009.pdf
-  // This means "import" vector() (constructors) from std::vector
-  // Inheriting constructors
-  // see http://ideone.com/NpAXgJ
-  // There is a bug with MSVC (works fine on ideone)
-  // using vector<T>::vector;
-  using vector<T>::vector<T>;                                                   // use the constructors from vector (under the name Vec). There is a typo in the book
-  T& operator[](int i)                                                          // range check
-  {
+  using vector<T>::vector;                                                      // was not working in MSVC 2103. Now work in MSVC 2015
+                                                                                // use the constructors from vector (under the name Vec)
+  
+  T& operator[](int i){                                                         // range check
     return vector<T>::at(i);
   }
 
-  const T& operator[](int i) const // range check const objects; §4.2.1
-  {
+  const T& operator[](int i) const {                                            // range check const objects; §4.2.1
     return vector<T>::at(i);
   }
 };
@@ -47,8 +45,7 @@ void checked(Vec<Entry>& book){
   try {
     book[book.size()] = { "Joe", 999999 };                                      // will throw an exception
     // ...
-  }
-  catch (out_of_range) {
+  } catch (out_of_range) {
     cout << "Range error\n";
   }
 }
@@ -71,7 +68,7 @@ int main() {
     Test();
 
 #ifdef _MSC_VER
-    //_CrtMemDumpAllObjectsSince(NULL);                                             // Begins the dump from the start of program execution
+    //_CrtMemDumpAllObjectsSince(NULL);                                         // Begins the dump from the start of program execution
     _CrtDumpMemoryLeaks();
 #endif // _MSC_VER
 
