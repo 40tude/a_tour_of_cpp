@@ -17,7 +17,7 @@ void do_work(){
 
 // ----------------------------------------------------------------------------
 void Test(void) {
-  using namespace std::chrono;                                                  // see §3.3
+  using namespace std::chrono;                                                  // see §3.3 p26
   
   auto t0 = high_resolution_clock::now();
     do_work();
