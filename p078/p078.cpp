@@ -9,32 +9,7 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-void use2(){
-
-  /*
-  ifstream in("file.txt"); // input file
-  if (!in) // check that the file was opened
-    cerr << "no file\n";
-  */
-  vector<string> source{ "US postal code pattern: XXddddd-dddd and variants", "TX 77845", "TX       77845", "TX       77845-12345678", "TX77845-1234", "DC 20500-0001" };
-
-  regex pat{ R"(\w{2}\s*\d{5}(-\d{4})?)" };                                     // U.S. postal code pattern
-
-  int lineno = 0;
-  //for (string line; getline(in, line);) {
-  for (auto line : source){
-    ++lineno;
-    smatch matches;                                                             // matched strings go here
-    if (regex_search(line, matches, pat)) {
-      cout << lineno << ": The complete match  : " << matches[0] << '\n'; 
-      if (1<matches.size() && matches[1].matched)
-        cout << " : Subpattern : " << matches[1] << '\n'; 
-    }
-  }
-}
-
-// ----------------------------------------------------------------------------
-void use(){
+void use_p78(){
   regex pat(R"(\w{2}\s*\d{5}(-\d{4})?)");                                       // US postal code pattern: XXddddd-dddd and variants
 
   vector<string> source{ "US postal code pattern: XXddddd-dddd and variants", "TX 77845", "TX       77845", "TX       77845-12345678", "TX77845-1234", "DC 20500-0001" };
@@ -50,18 +25,39 @@ void use(){
 }
 
 // ----------------------------------------------------------------------------
-bool is_identifier(const string& s){
-  regex pat{ R"([_[:alpha:]]\w*)" };
+void use_p79() {
+
+  vector<string> source{ "US postal code pattern: XXddddd-dddd and variants", "TX 77845", "TX       77845", "TX       77845-12345678", "TX77845-1234", "DC 20500-0001" };
+
+  regex pat{ R"(\w{2}\s*\d{5}(-\d{4})?)" };                                     // U.S. postal code pattern
+
+  int lineno = 0;
+  //for (string line; getline(in, line);) {
+  for (auto line : source) {
+    ++lineno;
+    smatch matches;                                                             // matched strings go here
+    if (regex_search(line, matches, pat)) {
+      cout << lineno << ": The complete match  : " << matches[0] << '\n';
+      if (1<matches.size() && matches[1].matched)
+        cout << " : Subpattern : " << matches[1] << '\n';
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+bool is_identifier(const string& s){                                            // see p 82
+  regex pat{ R"([_[:alpha:]]\w*)" };                                            // underscore or letter
+                                                                                // followed by zero or more underscore, letters or digits
   return regex_match(s, pat);
 }
 
 // ----------------------------------------------------------------------------
 void Test(void) {
-  cout << "Using use()" << endl;
-  use();
+  cout << "Using use_p78()" << endl;
+  use_p78();
 
-  cout << "\nUsing use2()" << endl;
-  use2();
+  cout << "\nUsing use_p79()" << endl;
+  use_p79();
 
   cout << "\nCheck valid identifier" << endl;
   if (is_identifier(string("MyFunctionCall")))
@@ -69,7 +65,7 @@ void Test(void) {
   else
     cout << "MyFunctionCall is not a valid identifier" << endl;
 
-  cout << "\nOutput white space separated words   : " << endl;
+  cout << "\nOutput white space separated words   : " << endl;                  // see p83
   string input1 = "aa as; asd ++eˆasdf asdfg";
   regex pat1{ R"(\s+(\w+))" };                                                  // output white space separated words
 

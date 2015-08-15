@@ -92,8 +92,8 @@ void Test(void) {
   g(MyVec, MyList, 250, "ddd");
 
 
-  // Variadic templates
-  cout << "\n\nFirst  : ";
+  
+  cout << "\n\nFirst  : ";                                                      // Variadic templates
   h(1, 2.2, "hello");
 
   cout << "\nSecond : ";

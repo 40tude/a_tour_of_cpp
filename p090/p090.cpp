@@ -50,11 +50,10 @@ void Test(void) {
   for (auto i:MyInput)                                                          // read from cin into ee
     cout << i << '\n';                                                          // write ee to cout
 
-  // 8.6 Formating
+                                                                                // See 8.6 p 91 about Formating
   cout << 1234 << ',' << hex << 1234 << ',' << oct << 1234 << '\n';             // print 1234,4d2,2322
   
-  //constexpr double d = 123.456;                                               // not yet supported in MSVC 2013    
-  const double d = 123.456;
+  constexpr double d = 123.456;                                                 // now supported in MSVC 2015    
   cout << d << "; "                                                             // use the default for mat for d
     << scientific << d << "; "                                                  // use 1.123e2 style for mat for d
     << hexfloat << d << "; "                                                    // use hexadecimal notation for d
@@ -63,13 +62,13 @@ void Test(void) {
 
   cout.precision(8);
   cout << 1234.56789 << ' ' << 1234.56789 << ' ' << 123456 << '\n';
+  
   cout.precision(4);
   cout << 1234.56789 << ' ' << 1234.56789 << ' ' << 123456 << '\n';
 }
 
 // ----------------------------------------------------------------------------
-// see p 93
-template<typename Target = string, typename Source = string>
+template<typename Target = string, typename Source = string>                    // see p 93
 Target to(Source arg){                                                          // convert Source to Target
 
   stringstream  interpreter;
