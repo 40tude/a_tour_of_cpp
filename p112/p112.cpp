@@ -9,26 +9,27 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <iterator>
 
 using namespace std;
 
 // ----------------------------------------------------------------------------
 int DoSomeFileIO(){
-
-  // fill input.txt file with some words
-  string FileNameIn{ "input.txt" };
+  
+  string FileNameIn{ "input.txt" };                                             // fill input.txt file with some words
   ofstream MyFile(FileNameIn);
-  string DefaultContent{ "Lorem ipsum dolor sit amet, iriure disputationi ut vel, ullum velit congue cu his.\nCu nam utinam appellantur, tibique incorrupte constituam qui cu." };
+  string DefaultContent { "Lorem ipsum dolor sit amet, iriure disputationi ut vel, ullum velit congue cu his.\nCu nam utinam appellantur, tibique incorrupte constituam qui cu." };
   MyFile << DefaultContent << endl;
   MyFile.close();
 
-  ifstream InputStream{ FileNameIn };                                           // input stream for file "FileNameIn"
-  istream_iterator<string> InputIterator{ InputStream };                        // input iterator for stream
-  istream_iterator<string> eos{};                                               // input sentinel
+                                                                                // see bottom of p112
+  ifstream InputStream { FileNameIn };                                          // input stream for file "FileNameIn"
+  istream_iterator<string> InputIterator { InputStream };                       // input iterator for stream
+  istream_iterator<string> eos {};                                              // input sentinel
   
-  string FileNameOut{ "output.txt" };
-  ofstream OutputStream{ FileNameOut };                                         // output stream for file "output.txt"
-  ostream_iterator<string> OutputIterator{ OutputStream, "\n" };                // output iterator for stream. '\n' will delimit outpu values
+  string FileNameOut { "output.txt" };
+  ofstream OutputStream { FileNameOut };                                        // output stream for file "output.txt"
+  ostream_iterator<string> OutputIterator { OutputStream, "\n" };               // output iterator for stream. '\n' will delimit outpu values
 
   vector<string> Buffer { InputIterator, eos };                                 // Construct Buffer using 2 iterators
   sort(Buffer.begin(), Buffer.end());                                           // sort the Buffer
@@ -38,19 +39,18 @@ int DoSomeFileIO(){
 }
 
 // ----------------------------------------------------------------------------
-int DoSomeFileIO2(){
-
-  // fill input.txt file with some words
-  string FileNameIn{ "input2.txt" };
+int DoSomeFileIO2(){                                                            // see p113
+  
+  string FileNameIn{ "input2.txt" };                                            // fill input.txt file with some words
   ofstream MyFile(FileNameIn);
-  string DefaultContent{ "Lorem ipsum dolor sit amet, iriure disputationi ut vel, ullum velit congue cu his.\nCu nam utinam appellantur, tibique incorrupte constituam qui cu." };
+  string DefaultContent { "Lorem ipsum dolor sit amet, iriure disputationi ut vel, ullum velit congue cu his.\nCu nam utinam appellantur, tibique incorrupte constituam qui cu." };
   MyFile << DefaultContent << endl;
   MyFile.close();
 
-  // TODO : Add more comment and/or rename variables
-  ifstream InputStream{ FileNameIn };                                           // input stream for file "FileNameIn"
-  istream_iterator<string> InputIterator{ InputStream };                        // input iterator for stream
-  istream_iterator<string> eos{};                                               // input sentinel
+                                                                                // TODO : Add more comment and/or rename variables
+  ifstream InputStream { FileNameIn };                                          // input stream for file "FileNameIn"
+  istream_iterator<string> InputIterator { InputStream };                       // input iterator for stream
+  istream_iterator<string> eos {};                                              // input sentinel
 
   string FileNameOut{ "output2.txt" };
   ofstream OutputStream{ FileNameOut };                                         // output stream for file "output2.txt"
@@ -64,12 +64,9 @@ int DoSomeFileIO2(){
 // ----------------------------------------------------------------------------
 void Test(void) {
 
-  ostream_iterator<string> OutputIterator{ cout };                              // write strings to cout  
+  ostream_iterator<string> OutputIterator { cout };                             // write strings to cout  
   *OutputIterator = "Hello, ";                                                  // meaning cout<<"Hello, "
-  ++OutputIterator;
-  ++OutputIterator;
-  ++OutputIterator;
-  ++OutputIterator;
+  //++OutputIterator;                                                           // TODO : need to understand. Seems useless
   *OutputIterator = "world!\n";                                                 // meaning cout<<"world!\n"
 
   DoSomeFileIO();
