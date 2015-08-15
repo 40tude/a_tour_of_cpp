@@ -1,4 +1,4 @@
-                                                                                // TO DO : see p 48 add unique_ptr
+                                                                                // TODO : immplement read_shape() using unique_ptr. see p 48
 #ifdef _MSC_VER
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -61,9 +61,9 @@ private:
 };
 
 void Smiley::draw() const {
+  
   Circle::draw();
-  for (auto p:eyes)
-    p->draw();
+  for (auto p:eyes) p->draw();
   mouth->draw();
 }
 
@@ -79,26 +79,20 @@ void Smiley::wink(int i){
   cout << "wink eye N° " << i << endl;
 }
 
-void rotate_all(vector<Shape*>& v, int angle)                                   // rotate v's elements by angle degrees
-{
-  for (auto p:v)
-    p->rotate(angle);
+void rotate_all(vector<Shape*>& v, int angle){                                  // rotate v's elements by angle degrees
+  for (auto p:v) p->rotate(angle);
 }
 
 // ----------------------------------------------------------------------------
 void Test(void) {
-  Smiley MySmiley {Point(), 5};
 
-  // see p 47
-  Shape* ps = &MySmiley;
+  Smiley MySmiley {Point(), 5};
+  Shape* ps = &MySmiley;                                                        // see p 47
 
   if (Smiley* p = dynamic_cast<Smiley*>(ps)) {
-    // ... is the Smiley pointer to by p ...
-    cout<<"This is a smiley"<<endl;
-  }
-  else {
-    // ... not a Smiley, try something else ...
-    cout<<"This is NOT a smiley"<<endl;
+    cout<<"This is a smiley"<<endl;                                             // ... is the Smiley pointer to by p ...
+  }  else {
+    cout<<"This is NOT a smiley"<<endl;                                         // ... not a Smiley, try something else ...
   }
 }
 
