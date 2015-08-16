@@ -13,14 +13,16 @@ using namespace std;
 void f(valarray<double>& a1, valarray<double>& a2){
 
   valarray<double> a = a1*3.14 + a2 / a1;                                       // numeric array operators *, +, /, and =
-  a2 += a1*3.14;
-  a = abs(a);
+  for (auto d : a) cout << d << endl;
+  cout << endl;
+
+  a2 += -a1*3.14;
+  a = abs(a2);
+  for (auto d : a) cout << d << endl;
+  cout << endl;
 
   double d = a2[7];                                                             // Z! no check out of bounds here. See p99  
   // ...
-
-  for (auto d : a)
-    cout << d << endl;
 }
 
 // ----------------------------------------------------------------------------
