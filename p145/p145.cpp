@@ -30,7 +30,7 @@ void g(){
   unique_lock<mutex> lck1{ gMutex1, defer_lock };                               // defer_lock: don’t yet try to acquire the mutex
   unique_lock<mutex> lck2{ gMutex2, defer_lock };
 
-  lock(lck1, lck2);                                                             //acquire all three locks
+  lock(lck1, lck2);                                                             //acquire both locks
   gMyInt1++;
   gMyInt2--;
 }                                                                               // implicitly release all mutexes
@@ -44,7 +44,7 @@ void Test(void) {
   t1.join();
   t2.join();
   
-  cout << "1 value has been manipulated (+3) by 2 threads. Its value is : " << gMyDble << endl;
+  cout << "1 value has been manipulated (+3) by 2 threads. Its value is now : " << gMyDble << endl;
 
   thread t3{ g };
   thread t4{ g };
@@ -54,10 +54,11 @@ void Test(void) {
 
   cout << "2 values have been manipulated (+1 and -1) by 2 threads. Their values are : " << gMyInt1 << " " << gMyInt2 << endl;
 
-  using namespace std::chrono;                                                  // see §11.4
+  using namespace std::chrono;                                                  // see §11.4 p125
   auto time0 = high_resolution_clock::now();
   this_thread::sleep_for(milliseconds{ 20 });
   auto time1 = high_resolution_clock::now();
+  cout << "Current thread was supposed to sleep for 20 ms" << endl;
   cout << duration_cast<nanoseconds>(time1 - time0).count() << " nanoseconds passed\n";
 }
 
