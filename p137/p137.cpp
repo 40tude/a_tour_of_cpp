@@ -34,7 +34,7 @@ void Test(void) {
   auto die2 = bind(uniform_int_distribution<>{1, 60}, default_random_engine{});
   int y = die2();
   
-  const int max = 8;                                                            // constexpr int max = 8;
+  constexpr int max = 8;                                                        // constexpr works now in MSVC 2015
   Rand_int rnd{ 0, max };                                                       // make a uniform random number generator
   vector<int> histogram(max + 1);                                               // make a vector of appropriate size
   
