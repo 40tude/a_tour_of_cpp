@@ -9,20 +9,20 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-void f(){                                                                       // function
-  cout << "Hello ";                                                             // cout access is not protected!
+void f(){                                                                       // A task can be a function
+  cout << "Hello ";                                                             // Error! Access to cout object is not synchronized!
 }
 
 // ----------------------------------------------------------------------------
-struct F {                                                                      // function object
-  void operator()(){ cout << "Parallel World!\n"; }                             // F’s call operator (§5.5). cout access is not protected!
+struct F {                                                                      // A task can be a function object
+  void operator()(){ cout << "Parallel World!\n"; }                             // F’s call operator (see §5.5 p64). Please note access to cout object is not synchronized
 };
 
 // ----------------------------------------------------------------------------
 void Test(void) {
 
-  thread t1{ f };                                                               // f() executes in separate thread
-  thread t2{ F() };                                                             // F()() executes in separate thread
+  thread t1{ f };                                                               // The task f() is launched by constructing a thread with the task as argument
+  thread t2{ F() };                                                             // The task f() executes in one thread and the task F() in an other thread
   t1.join();                                                                    // wait for t1
   t2.join();                                                                    // wait for t2
 }
