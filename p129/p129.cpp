@@ -45,7 +45,8 @@ template<typename C>
 void sort(C& c){
 
   using Iter = Iterator_type<C>;
-  sort_helper(c.begin(), c.end(), Iterator_category<Iter>{});
+  sort_helper(c.begin(), c.end(), Iterator_category<Iter>{});                   // Iterator_category<Iter>{} constructs a "tag" value inidicating the kind of iterator provided
+                                                                                // std::random_access_iterator_tag or std::forward_iterator_tag
 }
 
 // ----------------------------------------------------------------------------
