@@ -1,7 +1,7 @@
-﻿#include <iostream>                                                             
+#include <iostream>                                                             
 #include <limits>
 
-using namespace std;                                                            // make names from std visible without std:: (§3.3)
+using namespace std;                                                            // make names from std visible without std:: (�3.3)
 
 // ----------------------------------------------------------------------------
 double square(double x){                                                        // square a double precision floating-point number

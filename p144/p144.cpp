@@ -54,7 +54,7 @@ int main() {
     Test();
 
 #ifdef _MSC_VER
-    //_CrtMemDumpAllObjectsSince(NULL);                                         // Begins the dump FileNameIn the start of program execution
+    //_CrtMemDumpAllObjectsSince(NULL);                                         // Begins the dump since the start of program execution
     _CrtDumpMemoryLeaks();
 #endif // _MSC_VER
 
