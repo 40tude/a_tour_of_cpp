@@ -26,7 +26,7 @@ void f(int n, const string& str){
 // ----------------------------------------------------------------------------
 void Test1(void) {
   
-  auto cube2 = bind(cube, 2);
+  auto cube2 = bind(cube, 2);                                                   // a call to cube2() call cube() with argument 2
   double bob = cube2();
 
   using namespace placeholders;
@@ -53,7 +53,7 @@ struct Shape{
 void user(Shape* p){
 
   p->draw();
-  auto draw = mem_fn(&Shape::draw);
+  auto draw = mem_fn(&Shape::draw);                                             // produce a function object that can be called as a nonmember function
   draw(p);
 }
 
@@ -68,7 +68,7 @@ void draw_all1(vector<Shape*>& v){
 void draw_all2(vector<Shape*>& v){
 
   cout << "\nUsing lambda : " << endl;
-  for_each(v.begin(), v.end(), [](Shape* p) { p->draw(); });
+  for_each(v.begin(), v.end(), [](Shape* p) { p->draw(); });                    // using lambda as an alternative
 }
 
 // ----------------------------------------------------------------------------
