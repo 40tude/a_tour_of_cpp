@@ -7,25 +7,25 @@
 #include <thread>
 #include <vector>
 #include <functional>                                                           // cref()
-#include <numeric>                                                              //accumulate
+#include <numeric>                                                              // accumulate
 
 using namespace std;
 
 // ----------------------------------------------------------------------------
-void f(const vector<double>& v, double* res){                                   // take input from v; place result in *res
+void f(const vector<double>& v, double* res){                                   // take input from a const ref and place result in *res
   *res = accumulate(v.begin(), v.end(), 0);
 }
 
 // ----------------------------------------------------------------------------
-class F {
+class F {                                                                       // function object
 public:
-  F(const vector<double>& vv, double* p) :v{ vv }, res{ p } { }
-  void operator()(){                                                            // place result in *res
+  F(const vector<double>& vv, double* p) :v{ vv }, res{ p } { }                 // take input from a const ref and place result in *res
+  void operator()(){                                                            
     *res = accumulate(v.begin(), v.end(), 0);
   }
 private:
   const vector<double>& v;                                                      // source of input
-  double*res;                                                                   //target for output
+  double*res;                                                                   // target for output
 };
 
 // ----------------------------------------------------------------------------
@@ -37,7 +37,7 @@ void Test(void) {
   double res1;
   double res2;
   thread t1{ f, cref(some_vec), &res1 };                                        // cref onstructs a const reference_wrapper from an argument.
-  thread t2{ F{ vec2, &res2 } };                                                // 
+  thread t2{ F{ vec2, &res2 } };                                                
   t1.join();
   t2.join();
   cout << res1 << ' ' << res2 << '\n';
