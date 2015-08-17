@@ -28,6 +28,7 @@ double comp4(vector<double>& v){                                                
   auto f2 = async(accum, v0 + sz / 2, v0 + sz * 3 / 4, 0.0);                    // third quarter
   auto f3 = async(accum, v0 + sz * 3 / 4, v0 + sz, 0.0);                        // fourth quarter
   
+
   return f0.get() + f1.get() + f2.get() + f3.get();                             // collect and combine the results
 }
 
