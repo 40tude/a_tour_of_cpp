@@ -9,25 +9,28 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-void f(promise<int>& px){                                                       // a task: place the result in px
+void Producer(promise<int>& px){                                                // a task: place the result in px
 
   try{                                                                          // ... compute a value for res ...
-    int res { 1024 };
-    px.set_value(res);
+    int MyValue { 42 };
+    px.set_value(MyValue);                                                      // put the value MyValue into the promise
   } catch (...) {                                                               // oops: couldn’t compute res
     px.set_exception(current_exception());                                      // pass the exception to the future’s thread. The current_exception() refers to the caught exception.
   }
 }
 
 // ----------------------------------------------------------------------------
-void g(future<int>& fx){                                                        // a task: get the result from fx
+void Consumer(future<int>& fx){                                                 // a task: get the result from fx
 
   try{
-    int v = fx.get();                                                           // if necessary, wait for the value to get computed
+    int v = fx.get();                                                           // If the value isn’t there yet, the thread is blocked until it arrives
+                                                                                // If the value couldn’t be computed, get() might throw an exception 
+                                                                                // From the system or transmitted from the task from which we were trying to get() the value
+
                                                                                 // ... use v ...
-    cout << "In g(), the future : " << v << endl;
+    cout << "In Consumer(), the value is : " << v << endl;
   } catch (...) {                                                               // oops: someone couldn’t compute v
-    cout << "Exception in g()" << endl;
+    cout << "Exception in Consumer()" << endl;
   }
 }
 
@@ -37,8 +40,8 @@ void Test(void) {
   promise<int>  myPromise;
   future<int>   myFuture = myPromise.get_future();
 
-  thread t1{f, ref(myPromise)};
-  thread t2{g, ref(myFuture)};
+  thread t1{Producer, ref(myPromise)};
+  thread t2{Consumer, ref(myFuture)};
 
   t1.join();
   t2.join();
