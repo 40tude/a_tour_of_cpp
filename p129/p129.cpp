@@ -38,7 +38,7 @@ using Iterator_type = typename C::iterator;                                     
 
 // ----------------------------------------------------------------------------
 template<typename Iter>
-using Iterator_category = typename std::iterator_traits<Iter>::iterator_category; // Iter’s category
+using Iterator_category = typename iterator_traits<Iter>::iterator_category;    // Iter’s category
 
 // ----------------------------------------------------------------------------
 template<typename C>
@@ -46,12 +46,11 @@ void sort(C& c){
 
   using Iter = Iterator_type<C>;
   sort_helper(c.begin(), c.end(), Iterator_category<Iter>{});                   // Iterator_category<Iter>{} constructs a "tag" value inidicating the kind of iterator provided
-                                                                                // std::random_access_iterator_tag or std::forward_iterator_tag
+                                                                                // Here it will return either std::random_access_iterator_tag or std::forward_iterator_tag
 }
 
 // ----------------------------------------------------------------------------
 void RealTest(vector<string>& v, forward_list<int>& lst){
-
   sort(v);                                                                      // sort the vector
   sort(lst);                                                                    // sort the singly-linked list
 }
